@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<ui:define name="title">
+	<h:outputText value="All users" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<h:dataTable value="#{UserBean.allUsers}" var="item">
+				<f:facet name="header">All users</f:facet>
+				<h:column>
+					<f:facet name="header">Login</f:facet>
+					<h:outputText value="#{item.user_login}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">E-mail addres</f:facet>
+					<h:outputText value="#{item.email}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">#{msg.action}</f:facet>
+					<h:commandLink value="#{msg.actionEdit}"
+						action="#{UserBean.editUser}" />
+					<h:commandLink value=" #{msg.actionDelete}"
+						action="#{UserBean.deleteUser}" />
+					
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

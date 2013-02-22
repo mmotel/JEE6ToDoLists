@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/defaultApp.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg.titleEditUsrList} #{AppBean.taskList.name}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="taskListForm">
+		
+		
+			<h:panelGrid columns="3">
+
+				<h:outputText value="#{msg.labelTaskListName}" />
+				<h:inputText id="name" size="32"
+					value="#{AppBean.taskList.name}" required="#{true}" validator="#{AppBean.uniqueTaskListNameEdit}">
+					<f:ajax execute="@this" render="mName" />
+				</h:inputText>
+				<h:messages id="mName" for="name" />
+				
+				<h:outputText value="#{msg.labelTaskListInfo}" />
+				<h:inputTextarea id="info" cols="32" rows="8"
+					value="#{AppBean.taskList.info}">
+					<f:ajax execute="@this" render="mInfo" />
+				</h:inputTextarea>
+				<h:messages id="mInfo" for="info" />
+				
+				<h:outputText value=" " />
+				<h:commandButton value="#{msg.formOKButton}"
+				action="#{AppBean.editedTaskList}" />
+			</h:panelGrid>
+
+			
+
+	 		<h:panelGrid>
+				<h:messages for="" />
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

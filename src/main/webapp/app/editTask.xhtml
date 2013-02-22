@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/defaultApp.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg.titleEditUsrTask} #{AppBean.task.name}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="taskListForm">
+
+
+			<h:panelGrid columns="3">
+
+				<h:outputText value="#{msg.labelTaskName}" />
+				<h:inputText id="name" value="#{AppBean.task.name}" size="32"
+					required="#{true}" validator="#{AppBean.uniqueTaskNameEdit}">
+					<f:ajax execute="@this" render="mName" />
+				</h:inputText>
+				<h:messages id="mName" for="name" />
+
+				<h:outputText value="#{msg.labelTaskPriority}" />
+				<h:selectOneRadio id="priority" value="#{AppBean.task.priority}"
+					required="#{true}">
+					<f:selectItem itemValue="0" itemLabel="#{msg.taskPriorityLow}" />
+					<f:selectItem itemValue="5" itemLabel="#{msg.taskPriorityNormal}" />
+					<f:selectItem itemValue="10" itemLabel="#{msg.taskPriorityHigh}" />
+				</h:selectOneRadio>
+				<h:messages id="mPriority" for="priority" />
+
+				<h:outputText value="#{msg.labelTaskStatus}" />
+				<h:inputText id="status" value="#{AppBean.task.status}" size="32">
+					<f:ajax execute="@this" render="mStatus" />
+				</h:inputText>
+				<h:messages id="mStatus" for="status" />
+
+				<h:outputText value="#{msg.labelTaskDeadline}" />
+				<rich:calendar value="#{AppBean.task.deadline}" id="calendar"
+					datePattern="dd.MM.yyyy" showApplyButton="#{true}"
+					style="width:200px">
+					<f:validator validatorId="deadLineDateValidator" />
+					<f:ajax execute="@this" render="mCalendar" />
+				</rich:calendar>
+				<h:messages id="mCalendar" for="calendar" />
+				
+				<h:outputText value="#{msg.labelTaskDone}" />
+				<h:selectOneRadio id="done" value="#{AppBean.task.done}"
+					required="#{true}">
+					<f:selectItem itemValue="true" itemLabel="#{msg.taskDoneYes}" />
+					<f:selectItem itemValue="false" itemLabel="#{msg.taskDoneNo}" />
+				</h:selectOneRadio>
+				<h:messages id="mDone" for="done" />
+
+				<h:outputText value="#{msg.labelTaskInfo}" />
+				<h:inputTextarea id="info" value="#{AppBean.task.info}" cols="32"
+					rows="8">
+					<f:ajax execute="@this" render="mInfo" />
+				</h:inputTextarea>
+				<h:messages id="mInfo" for="info" />
+
+				<h:outputText value=" " />
+				<h:commandButton value="#{msg.formOKButton}"
+					action="#{AppBean.editedTask}" />
+			</h:panelGrid>
+
+
+
+			<h:panelGrid>
+				<h:messages for="" />
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<div>
+		<h:form>
+			<div class="menuItem">
+				<h:commandLink action="home?faces-redirect=true">
+					<h:outputText value="#{msg.linkHome}" />
+				</h:commandLink>
+			</div>
+			<div class="menuItem">
+				<h:commandLink action="app/home?faces-redirect=true">
+					<h:outputText value="#{msg.linkLogin}" />
+				</h:commandLink>
+			</div>
+			<div class="menuItem">
+				<h:commandLink action="register?faces-redirect=true">
+					<h:outputText value="#{msg.linkRegister}" />
+				</h:commandLink>
+			</div>
+		</h:form>
+	</div>
+</ui:composition>

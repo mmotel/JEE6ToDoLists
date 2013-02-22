@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg.titleResgistration}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="userForm">
+			<f:event type="postValidate" listener="#{UserBean.validatePasswords}" />
+			<h:panelGrid columns="3">
+
+				<h:outputText value="#{msg.labelLogin}" />
+				<h:inputText id="login" defaultLabel="click to enter your login"
+					value="#{UserBean.user.user_login}" required="#{true}" size="32"
+					validator="#{UserBean.uniqueLogin}">
+					<f:ajax execute="@this" render="mLogin" />
+				</h:inputText>
+				<h:messages id="mLogin" for="login" />
+
+				<h:outputText value="#{msg.labelPassword}" />
+				<h:inputSecret id="password" value="#{UserBean.user.user_password}"
+					required="#{true}" size="32">
+					<f:ajax execute="@this" render="mPassword" />
+				</h:inputSecret>
+				<h:messages id="mPassword" for="password" />
+
+				<h:outputText value="#{msg.labelRePassword}" />
+				<h:inputSecret id="rePassword" value="#{UserBean.repratePassword}"
+					required="#{true}" size="32">
+					<f:validateLength minimum="6" />
+					<f:ajax execute="@this" render="mRePassword" />
+				</h:inputSecret>
+				<h:messages id="mRePassword" for="rePassword" />
+
+				<h:outputText value="#{msg.labelEmail}" />
+				<h:inputText id="email" value="#{UserBean.user.email}"
+					required="#{true}" size="32">
+					<f:ajax execute="@this" render="mEmail" />
+				</h:inputText>
+				<h:messages id="mEmail" for="email" />
+
+				<h:outputText value="#{msg.labelDob}" />
+				<rich:calendar value="#{UserBean.user.dateOfBirth}" id="calendar"
+					datePattern="dd.MM.yyyy" showApplyButton="#{true}"
+					style="width:200px">
+					<f:ajax execute="@this" render="mCalendar" />
+				</rich:calendar>
+				<h:messages id="mCalendar" for="calendar" />
+
+				<h:outputText value="#{msg.labelSecurityQuestion}" />
+				<h:inputTextarea id="question" value="#{UserBean.user.question}"
+					required="#{true}" cols="32" rows="2">
+					<f:ajax execute="@this" render="mQuestion" />
+				</h:inputTextarea>
+				<h:messages id="mQuestion" for="question" />
+
+				<h:outputText value="#{msg.labelAnswer}" />
+				<h:inputText id="answer" value="#{UserBean.user.answer}"
+					required="#{true}" size="32">
+					<f:ajax execute="@this" render="mAnswer" />
+				</h:inputText>
+				<h:messages id="mAnswer" for="answer" />
+
+				<h:outputText value=" " />
+				<h:commandButton value="#{msg.actionAddUser}" action="#{UserBean.addUser}" />
+
+			</h:panelGrid>
+
+
+
+			<h:panelGrid>
+				<h:messages for="" />
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

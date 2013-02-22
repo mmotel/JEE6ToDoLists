@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/templates/defaultApp.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg.titleUsrList} #{AppBean.taskList.name}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<h:outputText
+				value="#{msg.labelTaskListInfo}: #{AppBean.taskList.info} " />
+			<h:commandButton value="Add task" action="addTask" />
+
+
+			<rich:dataTable value="#{AppBean.listTasks}" var="item" id="table">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskName}" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskPriority}" />
+					</f:facet>
+					<ui:fragment rendered="#{item.priority==0}">
+						<h:outputText value="#{msg.taskPriorityLow}" />
+					</ui:fragment>
+					<ui:fragment rendered="#{item.priority==5}">
+						<h:outputText value="#{msg.taskPriorityNormal}" />
+					</ui:fragment>
+					<ui:fragment rendered="#{item.priority==10}">
+						<h:outputText value="#{msg.taskPriorityHigh}" />
+					</ui:fragment>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskStatus}" />
+					</f:facet>
+					<h:outputText value="#{item.status}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskDeadline}" />
+					</f:facet>
+					<h:outputText value="#{item.deadline}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskDone}" />
+					</f:facet>
+					<ui:fragment rendered="#{item.done}">
+						<h:outputText value="#{msg.taskDoneYes}" />
+					</ui:fragment>
+					<ui:fragment rendered="#{!item.done}">
+						<h:outputText value="#{msg.taskDoneNo}" />
+					</ui:fragment>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskInfo}" />
+					</f:facet>
+					<h:outputText value="#{item.info}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelActions}" />
+					</f:facet>
+					<h:commandLink value="#{msg.actionEdit}"
+						action="#{AppBean.editTask}" />
+					<h:outputText value=" " />
+					<h:commandLink
+						onclick="if(!confirm('#{txtDeleteConfirm}')) return false"
+						value="#{msg.actionDelete}" action="#{AppBean.deleteTask}" />
+					<h:outputText value=" " />
+					<ui:fragment rendered="#{!item.done}">
+						<h:commandButton value="#{msg.actionDone}"
+							onclick="if(!confirm('#{msg.txtDeleteConfirm}')) return false"
+							action="#{AppBean.makeTaskDone}" />
+					</ui:fragment>
+				</rich:column>
+			</rich:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

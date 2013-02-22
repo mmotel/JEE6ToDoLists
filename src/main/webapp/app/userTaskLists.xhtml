@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/templates/defaultApp.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg.titleUsrLists}" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>		
+			<rich:dataTable value="#{AppBean.userTaskLists}" var="item"
+				id="table">
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskListName}" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelTaskListInfo}" />
+					</f:facet>
+					<h:outputText value="#{item.info}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="#{msg.labelActions}" />
+					</f:facet>
+					<h:commandLink value="#{msg.actionEdit}"
+						action="#{AppBean.editTaskList}" />
+					<h:outputText value=" " />
+					<h:commandLink onclick="if(!confirm('#{msg.txtDeleteConfirm}')) return false"
+						value="#{msg.actionDelete}" action="#{AppBean.deleteTaskList}" />
+					<h:outputText value=" " />
+					<h:commandButton value="#{msg.actionShowList}"
+						action="#{AppBean.showTasks}" />
+					<h:outputText value=" " />
+					<h:commandButton value="#{msg.actionAddTask}" action="#{AppBean.addTask}" />
+				</rich:column>
+			</rich:dataTable>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

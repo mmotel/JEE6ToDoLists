@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<div>
+		<h:form>
+			<div class="menuItem">
+				<h:commandLink action="home?faces-redirect=true">
+					<h:outputText value="#{msg.linkHomeApp}" />
+				</h:commandLink>
+			</div>
+			<div class="menuItem">
+				<h:commandLink action="userTaskLists?faces-redirect=true">
+					<h:outputText value="#{msg.linkUsrLists}" />
+				</h:commandLink>
+			</div>
+			<div class="menuItem">
+				<h:commandLink action="addTaskList?faces-redirect=true">
+					<h:outputText value="#{msg.linkAddUsrList}" />
+				</h:commandLink>
+			</div>
+			
+			<!-- right -->
+			<div class="menuItemRight">
+				<a href="../logout.jsp">#{msg.actionLogout}</a>
+			</div>
+			
+			<div class="menuItemRight">
+			<h:commandLink value="#{msg.actionEditUser}" action="#{AppBean.editUser}" />
+			</div>
+			
+			<div class="menuItemRight">
+				<h:outputText value="#{msg.txtHello}" />
+				<h:outputText value="#{AppBean.logedInUser.user_login}" />
+				<h:outputText value="."/>
+			</div>
+			
+		</h:form>
+	</div>
+</ui:composition>
